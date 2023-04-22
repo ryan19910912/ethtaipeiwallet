@@ -12,10 +12,10 @@ function App() {
         <img src={ETHTaipeiLogo} width="300" height="150" />
       </div>
       {/* <div id="MainPage"> */}
-        <div id="div1">
+        {/* <div id="div1">
           <div className="TopTitle">HD Wallet</div>
           <div><CreateAccount /></div>
-        </div>
+        </div> */}
         <div id="div2">
           <div className="TopTitle">CA Wallet</div>
           <div><AACreateAccount /></div>

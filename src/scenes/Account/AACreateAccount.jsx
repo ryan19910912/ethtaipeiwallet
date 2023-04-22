@@ -101,7 +101,7 @@ function AACreateAccount() {
       alert("Please Set Recover CA Wallet Account Address");
     } else {
 
-      console.log("aaAccount = "+aaAccount);
+      const caaccount = document.getElementById("aaAccount").value;
 
       const main = async () => {
         const provider = new ethers.providers.JsonRpcProvider(chiado.rpcUrl);
@@ -110,7 +110,7 @@ function AACreateAccount() {
   
         const signer = new ethers.Wallet(privateKey, provider);
   
-        const accountContract = new ethers.Contract(aaAccount, SimpleAccountAbi, signer);
+        const accountContract = new ethers.Contract(caaccount, SimpleAccountAbi, signer);
   
         await accountContract.doVoteProposal(document.getElementById("newOwner").value);
   
@@ -164,7 +164,7 @@ function AACreateAccount() {
     } else if (text === "3") {
       setGuardian3(document.getElementById("guardian3").value);
     } else if (text === "A") {
-      setGuardianR(document.getElementById("aaAccount").value);
+      setAaAccount(document.getElementById("aaAccount").value);
     } else if (text === "N") {
       setNewOwner(document.getElementById("newOwner").value);
     } else if (text === "O") {
@@ -195,7 +195,7 @@ function AACreateAccount() {
       <p> New Owner Address : <input type="text" id="newOwner" value={newOwner} oninput="myinput('N')" /></p>
 
       <button type="button" className="btn btn-outline-primary ml-3"
-        onClick={() => recoverAccount}
+        onClick={recoverAccount}
       // onClick={() => aashowRecoverInput ? recoverAccount(seedphrase) : setAaShowRecoverInput(true)}
       // if the recoveryinput is showing but there is no seedphrase, disable the ability to recover account
       // disabled={aashowRecoverInput && !seedphrase}
