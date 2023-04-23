@@ -173,7 +173,7 @@ function AACreateAccount() {
       const caaccount = document.getElementById("aaAccount").value;
 
       const accountContract = new ethers.Contract(caaccount, SimpleAccountAbi, signer);
-      await accountContract.takeOwnershipt(document.getElementById("guardian1").value, {gasLimit:5000000});
+      await accountContract.takeOwnershipt({gasLimit:5000000});
 
       const accountOwner = await accountContract.owner();
 
