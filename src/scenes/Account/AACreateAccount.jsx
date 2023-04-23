@@ -43,7 +43,7 @@ function AACreateAccount() {
       const main = async () => {
         const entryPointAddress = "0x0576a174D229E3cFA37253523E645A78A0C91B57"
         const paymasterAddress = ""
-        const factoryAddress = "0x60f17A90aD97E229173579532a0a54B20079A212"
+        const factoryAddress = "0x3e4C2dd06433dD5643053825DCFC523A5783B30c"
 
         const provider = new ethers.providers.JsonRpcProvider(chiado.rpcUrl);
         // signer = await provider.getSigner()
@@ -101,7 +101,7 @@ function AACreateAccount() {
 
         const accountContract = new ethers.Contract(caaccount, SimpleAccountAbi, signer);
 
-        await accountContract.voteProposal(document.getElementById("newOwner").value);
+        await accountContract.voteProposal(document.getElementById("newOwner").value, {gasLimit:5000000});
 
         const accountOwner = await accountContract.owner();
         setOwner(accountOwner);
@@ -132,9 +132,9 @@ function AACreateAccount() {
 
         const accountContract = new ethers.Contract(caaccount, SimpleAccountAbi, signer);
 
-        await accountContract.addGuardian(document.getElementById("guardian1").value);
-        await accountContract.addGuardian(document.getElementById("guardian2").value);
-        await accountContract.addGuardian(document.getElementById("guardian3").value);
+        await accountContract.addGuardian(document.getElementById("guardian1").value, {gasLimit:5000000});
+        await accountContract.addGuardian(document.getElementById("guardian2").value, {gasLimit:5000000});
+        await accountContract.addGuardian(document.getElementById("guardian3").value, {gasLimit:5000000});
       }
 
       main();
