@@ -210,8 +210,6 @@ function AACreateAccount() {
         Recover Account
       </button>
 
-      <hr />
-
     </div>
   );
 }
