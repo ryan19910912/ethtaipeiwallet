@@ -51,12 +51,13 @@ function AACreateAccount() {
 
         const signer = new ethers.Wallet(privateKey, provider);
 
-        
+        const salt = 10;
+
         //SimpleAccountFactory
         const contract = new ethers.Contract(factoryAddress, SimpleAccountFactoryAbi, signer);
-        const createAccount = await contract.createAccount(document.getElementById("owner").value, 5);
+        const createAccount = await contract.createAccount(document.getElementById("owner").value, salt);
 
-        const getAddress = await contract.getAddress(document.getElementById("owner").value, 5);
+        const getAddress = await contract.getAddress(document.getElementById("owner").value, salt);
 
         setAaAccount(getAddress);
 
