@@ -86,7 +86,7 @@ function AACreateAccount() {
   function recoverAccount() {
     if (document.getElementById("newOwner").value === "") {
       alert("Please Set New Owner Address");
-    } else if (document.getElementById("aaAccount").value === ""){
+    } else if (document.getElementById("aaAccount").value === "") {
       alert("Please Set Recover CA Wallet Account Address");
     } else {
 
@@ -96,13 +96,13 @@ function AACreateAccount() {
         const provider = new ethers.providers.JsonRpcProvider(chiado.rpcUrl);
         // signer = await provider.getSigner()
         const privateKey = "108aff6d1a3f82f9c573fda61573279ffad9ea05daff386847c93532c7ed3515";
-  
+
         const signer = new ethers.Wallet(privateKey, provider);
-  
+
         const accountContract = new ethers.Contract(caaccount, SimpleAccountAbi, signer);
-  
+
         await accountContract.doVoteProposal(document.getElementById("newOwner").value);
-  
+
         const accountOwner = await accountContract.owner();
         setOwner(accountOwner);
       }
@@ -111,7 +111,7 @@ function AACreateAccount() {
     }
   }
 
-  function setGuardians(){
+  function setGuardians() {
     if (document.getElementById("guardian1").value === "") {
       alert("Please Set Guardian 1 Address");
     } else if (document.getElementById("guardian2").value === "") {
@@ -125,7 +125,7 @@ function AACreateAccount() {
         const provider = new ethers.providers.JsonRpcProvider(chiado.rpcUrl);
         // signer = await provider.getSigner()
         const privateKey = "108aff6d1a3f82f9c573fda61573279ffad9ea05daff386847c93532c7ed3515";
-  
+
         const signer = new ethers.Wallet(privateKey, provider);
 
         const caaccount = document.getElementById("aaAccount").value;
@@ -135,14 +135,14 @@ function AACreateAccount() {
         // await accountContract.addGuardian(document.getElementById("guardian1").value);
         // await accountContract.addGuardian(document.getElementById("guardian2").value);
         // await accountContract.addGuardian(document.getElementById("guardian3").value);
-  
-        const guardianslist = "["+document.getElementById("guardian1").value+","+document.getElementById("guardian2").value+","+document.getElementById("guardian3").value"]";
+
+        const guardianslist = "[" + document.getElementById("guardian1").value + "," + document.getElementById("guardian2").value + "," + document.getElementById("guardian3").value"]";
         // guardianslist.push(document.getElementById("guardian1").value);
         // guardianslist.push(document.getElementById("guardian2").value);
         // guardianslist.push(document.getElementById("guardian3").value);
 
-        console.log("guardianslist = "+guardianslist);
-  
+        console.log("guardianslist = " + guardianslist);
+
         await accountContract.setGuardians(guardianslist);
       }
 
@@ -151,20 +151,18 @@ function AACreateAccount() {
 
   }
 
-  function getOwner (){
+  function getOwner() {
     const main = async () => {
-      const accountContract = new ethers.Contract(getAddress, SimpleAccountAbi, signer);
+      const provider = new ethers.providers.JsonRpcProvider(chiado.rpcUrl);
+      // signer = await provider.getSigner()
+      const privateKey = "108aff6d1a3f82f9c573fda61573279ffad9ea05daff386847c93532c7ed3515";
 
-      // await accountContract.addGuardian(document.getElementById("guardian1").value);
-      // await accountContract.addGuardian(document.getElementById("guardian2").value);
-      // await accountContract.addGuardian(document.getElementById("guardian3").value);
+      const signer = new ethers.Wallet(privateKey, provider);
 
-      const guardianslist = [];
-      guardianslist.push(document.getElementById("guardian1").value);
-      guardianslist.push(document.getElementById("guardian2").value);
-      guardianslist.push(document.getElementById("guardian3").value);
+      const caaccount = document.getElementById("aaAccount").value;
 
-      await accountContract.setGuardians(JSON.stringify(guardianslist));
+      const accountContract = new ethers.Contract(caaccount, SimpleAccountAbi, signer);
+      const accountOwner = await accountContract.owner();
     }
 
     main();
@@ -230,7 +228,7 @@ function AACreateAccount() {
       </button>
 
       <p>Address : {aaAccount === null ? "" : <a href={`https://blockscout.com/gnosis/chiado/address/${aaAccount}`} target="_blank" rel="noreferrer">{aaAccount}</a>}</p>
-      
+
       <button type="button" className="btn btn-primary" onClick={getOwner}>Get Owner</button>
       <p>Owner : {owner === null ? "" : owner}</p>
 
