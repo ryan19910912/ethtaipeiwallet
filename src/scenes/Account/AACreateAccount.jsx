@@ -136,7 +136,7 @@ function AACreateAccount() {
         // await accountContract.addGuardian(document.getElementById("guardian2").value);
         // await accountContract.addGuardian(document.getElementById("guardian3").value);
 
-        const guardianslist = "[" + document.getElementById("guardian1").value + "," + document.getElementById("guardian2").value + "," + document.getElementById("guardian3").value"]";
+        const guardianslist = "[" + document.getElementById("guardian1").value + "," + document.getElementById("guardian2").value + "," + document.getElementById("guardian3").value+"]";
         // guardianslist.push(document.getElementById("guardian1").value);
         // guardianslist.push(document.getElementById("guardian2").value);
         // guardianslist.push(document.getElementById("guardian3").value);
