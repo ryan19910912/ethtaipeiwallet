@@ -36,13 +36,7 @@ function AACreateAccount() {
 
   function createAccount() {
 
-    if (document.getElementById("guardian1").value === "") {
-      alert("Please Set Guardian 1 Address");
-    } else if (document.getElementById("guardian2").value === "") {
-      alert("Please Set Guardian 2 Address");
-    } else if (document.getElementById("guardian3").value === "") {
-      alert("Please Set Guardian 3 Address");
-    } else if (document.getElementById("owner").value === "") {
+    if (document.getElementById("owner").value === "") {
       alert("Please Set CA Wallet Owner");
     } else {
 
@@ -66,21 +60,8 @@ function AACreateAccount() {
 
         setAaAccount(getAddress);
 
-        const accountContract = new ethers.Contract(getAddress, SimpleAccountAbi, signer);
-
-        // await accountContract.addGuardian(document.getElementById("guardian1").value);
-        // await accountContract.addGuardian(document.getElementById("guardian2").value);
-        // await accountContract.addGuardian(document.getElementById("guardian3").value);
-
-        const guardianslist = [];
-        guardianslist.push(document.getElementById("guardian1").value);
-        guardianslist.push(document.getElementById("guardian2").value);
-        guardianslist.push(document.getElementById("guardian3").value);
-
-        await accountContract.setGuardians(JSON.stringify(guardianslist));
-
-        const accountOwner = await accountContract.owner();
-        setOwner(accountOwner);
+        // const accountOwner = await accountContract.owner();
+        // setOwner(accountOwner);
       }
 
       main();
@@ -127,6 +108,63 @@ function AACreateAccount() {
 
       main();
     }
+  }
+
+  function setGuardians(){
+    if (document.getElementById("guardian1").value === "") {
+      alert("Please Set Guardian 1 Address");
+    } else if (document.getElementById("guardian2").value === "") {
+      alert("Please Set Guardian 2 Address");
+    } else if (document.getElementById("guardian3").value === "") {
+      alert("Please Set Guardian 3 Address");
+    } else {
+
+      const main = async () => {
+
+        const provider = new ethers.providers.JsonRpcProvider(chiado.rpcUrl);
+        // signer = await provider.getSigner()
+        const privateKey = "108aff6d1a3f82f9c573fda61573279ffad9ea05daff386847c93532c7ed3515";
+  
+        const signer = new ethers.Wallet(privateKey, provider);
+
+        const caaccount = document.getElementById("aaAccount").value;
+
+        const accountContract = new ethers.Contract(caaccount, SimpleAccountAbi, signer);
+
+        // await accountContract.addGuardian(document.getElementById("guardian1").value);
+        // await accountContract.addGuardian(document.getElementById("guardian2").value);
+        // await accountContract.addGuardian(document.getElementById("guardian3").value);
+  
+        const guardianslist = [];
+        guardianslist.push(document.getElementById("guardian1").value);
+        guardianslist.push(document.getElementById("guardian2").value);
+        guardianslist.push(document.getElementById("guardian3").value);
+  
+        await accountContract.setGuardians(JSON.stringify(guardianslist));
+      }
+
+      main();
+    }
+
+  }
+
+  function getOwner (){
+    const main = async () => {
+      const accountContract = new ethers.Contract(getAddress, SimpleAccountAbi, signer);
+
+      // await accountContract.addGuardian(document.getElementById("guardian1").value);
+      // await accountContract.addGuardian(document.getElementById("guardian2").value);
+      // await accountContract.addGuardian(document.getElementById("guardian3").value);
+
+      const guardianslist = [];
+      guardianslist.push(document.getElementById("guardian1").value);
+      guardianslist.push(document.getElementById("guardian2").value);
+      guardianslist.push(document.getElementById("guardian3").value);
+
+      await accountContract.setGuardians(JSON.stringify(guardianslist));
+    }
+
+    main();
   }
 
 
@@ -183,17 +221,25 @@ function AACreateAccount() {
     <div>
       <p>Please Set CA Wallet Owner</p>
       <p>CA Wallet Owner : <input type="text" id="owner" value={owner} oninput="myinput('O')" /></p>
-      <p>Please Set Guardians</p>
-      <p>Guardian 1 Address : <input type="text" id="guardian1" value={guardian1} oninput="myinput('1')" /></p>
-      <p>Guardian 2 Address : <input type="text" id="guardian2" value={guardian2} oninput="myinput('2')" /></p>
-      <p>Guardian 3 Address : <input type="text" id="guardian3" value={guardian3} oninput="myinput('3')" /></p>
       {/* <form onSubmit={event => event.preventDefault()}> */}
       <button type="button" className="btn btn-primary" onClick={createAccount}>
         Create Account
       </button>
 
       <p>Address : {aaAccount === null ? "" : <a href={`https://blockscout.com/gnosis/chiado/address/${aaAccount}`} target="_blank" rel="noreferrer">{aaAccount}</a>}</p>
+      
+      <button type="button" className="btn btn-primary" onClick={getOwner}>Get Owner</button>
       <p>Owner : {owner === null ? "" : owner}</p>
+
+      <p>Please Set Guardians</p>
+      <p>Guardian 1 Address : <input type="text" id="guardian1" value={guardian1} oninput="myinput('1')" /></p>
+      <p>Guardian 2 Address : <input type="text" id="guardian2" value={guardian2} oninput="myinput('2')" /></p>
+      <p>Guardian 3 Address : <input type="text" id="guardian3" value={guardian3} oninput="myinput('3')" /></p>
+
+      <button type="button" className="btn btn-primary" onClick={setGuardians}>
+        Set Guardians
+      </button>
+
       <hr />
 
       <p> Action Recover Account </p>
