@@ -212,9 +212,6 @@ function AACreateAccount() {
 
       <hr />
 
-      <p>Recover Audit</p>
-      <></>
-
     </div>
   );
 }
