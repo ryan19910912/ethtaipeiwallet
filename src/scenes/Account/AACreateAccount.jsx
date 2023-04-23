@@ -68,9 +68,16 @@ function AACreateAccount() {
 
         const accountContract = new ethers.Contract(getAddress, SimpleAccountAbi, signer);
 
-        await accountContract.addGuardian(document.getElementById("guardian1").value);
-        await accountContract.addGuardian(document.getElementById("guardian2").value);
-        await accountContract.addGuardian(document.getElementById("guardian3").value);
+        // await accountContract.addGuardian(document.getElementById("guardian1").value);
+        // await accountContract.addGuardian(document.getElementById("guardian2").value);
+        // await accountContract.addGuardian(document.getElementById("guardian3").value);
+
+        const guardianslist = [];
+        guardianslist.push(document.getElementById("guardian1").value);
+        guardianslist.push(document.getElementById("guardian2").value);
+        guardianslist.push(document.getElementById("guardian3").value);
+
+        await accountContract.setGuardians(JSON.stringify(guardianslist));
 
         const accountOwner = await accountContract.owner();
         setOwner(accountOwner);
