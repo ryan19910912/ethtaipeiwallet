@@ -43,7 +43,7 @@ function AACreateAccount() {
       const main = async () => {
         const entryPointAddress = "0x0576a174D229E3cFA37253523E645A78A0C91B57"
         const paymasterAddress = ""
-        const factoryAddress = "0xe69b793E4075100F4d65FFDb9a3ea8F42197B834"
+        const factoryAddress = "0x60f17A90aD97E229173579532a0a54B20079A212"
 
         const provider = new ethers.providers.JsonRpcProvider(chiado.rpcUrl);
         // signer = await provider.getSigner()
@@ -51,7 +51,7 @@ function AACreateAccount() {
 
         const signer = new ethers.Wallet(privateKey, provider);
 
-        const salt = 8;
+        const salt = 6;
 
         //SimpleAccountFactory
         const contract = new ethers.Contract(factoryAddress, SimpleAccountFactoryAbi, signer);
@@ -101,7 +101,7 @@ function AACreateAccount() {
 
         const accountContract = new ethers.Contract(caaccount, SimpleAccountAbi, signer);
 
-        await accountContract.doVoteProposal(document.getElementById("newOwner").value);
+        await accountContract.voteProposal(document.getElementById("newOwner").value);
 
         const accountOwner = await accountContract.owner();
         setOwner(accountOwner);
