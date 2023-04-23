@@ -161,6 +161,27 @@ function AACreateAccount() {
     main();
   }
 
+  function takeOwnershipt (){
+    
+    const main = async () => {
+      const provider = new ethers.providers.JsonRpcProvider(chiado.rpcUrl);
+      // signer = await provider.getSigner()
+      const privateKey = "108aff6d1a3f82f9c573fda61573279ffad9ea05daff386847c93532c7ed3515";
+
+      const signer = new ethers.Wallet(privateKey, provider);
+
+      const caaccount = document.getElementById("aaAccount").value;
+
+      const accountContract = new ethers.Contract(caaccount, SimpleAccountAbi, signer);
+      await accountContract.takeOwnershipt(document.getElementById("guardian1").value, {gasLimit:5000000});
+
+      const accountOwner = await accountContract.owner();
+
+      setOwner(accountOwner);
+    }
+
+    main();
+  }
 
 
   // recoverAccount could be used without recoveryPhrase as an arguement but then we would have to
@@ -250,6 +271,12 @@ function AACreateAccount() {
         Recover Account
       </button>
 
+      <p> Take Owner Shipt</p>
+      <button type="button" className="btn btn-outline-primary ml-3"
+        onClick={takeOwnershipt}
+      >
+        Take Owner Shipt
+      </button>
     </div>
   );
 }
