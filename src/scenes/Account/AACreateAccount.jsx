@@ -271,11 +271,11 @@ function AACreateAccount() {
         Recover Account
       </button>
 
-      <p> Take Owner Shipt</p>
+      <p> Take Owner Ship</p>
       <button type="button" className="btn btn-outline-primary ml-3"
         onClick={takeOwnershipt}
       >
-        Take Owner Shipt
+        Take Owner Ship
       </button>
     </div>
   );
