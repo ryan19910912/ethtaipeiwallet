@@ -51,7 +51,7 @@ function AACreateAccount() {
 
         const signer = new ethers.Wallet(privateKey, provider);
 
-        const salt = 10;
+        const salt = 8;
 
         //SimpleAccountFactory
         const contract = new ethers.Contract(factoryAddress, SimpleAccountFactoryAbi, signer);
